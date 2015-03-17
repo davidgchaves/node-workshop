@@ -6,8 +6,8 @@ var http = require('http'),
 http.createServer(function(request, response) {
 
     dataFilepath = path.join(__dirname, 'data.csv');
-    // TODO: Find the ASYNCHRONOUS, NON-BLOCKING API for reading in a file.
-    fs.CHANGE_ME(dataFilepath, 'utf-8', function(err, data) {
+    // readFile: The ASYNCHRONOUS, NON-BLOCKING API for reading in a file.
+    fs.readFile(dataFilepath, 'utf-8', function(err, data) {
         var responseData = {};
 
         // Basic JS: Work with the data in the file, and create the response
@@ -19,13 +19,13 @@ http.createServer(function(request, response) {
             responseData[parts[0]] = parts[1];
         });
 
-        // TODO: How do we set the content type we're sending back?
+        // Set the content type we're sending back as JSON
         response.writeHead(200, {
-            'CHANGEME':'CHANGEME'
+            'Content-Type':'application/json'
         });
 
-        // TODO: How do we serialize responseData to a JSON string?
-        response.end(CHANGE_ME.CHANGE_ME(responseData));
+        // Serialize responseData to a JSON string using stringify
+        response.end(JSON.stringify(responseData));
 
     });
 
