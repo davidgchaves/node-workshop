@@ -8,7 +8,7 @@ var express      = require('express'),
 var routes = require('./routes/index'),
     users  = require('./routes/users');
 
-var Post = require('./models/Post');
+var Post = require('./models/Post.js');
 
 var app = express();
 

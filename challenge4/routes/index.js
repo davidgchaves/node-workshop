@@ -1,14 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var Post = require('./models/Post');
+var Post = require('../models/Post');
 
 // Render our home page with all blog posts
 router.get('/', function(request, response) {
-
-  // TODO: How do we get a list of all model objects using a mongoose model?
-  Post.CHANGEME(function(err, posts) {
+  Post.find(function(err, posts) {
     if (err) { response.send(500, 'There was an error - tough luck.'); }
-    else { response.render('index', { posts:posts }); }
+    else { response.render('index', { posts: posts }); }
   });
 });
 
@@ -17,13 +15,14 @@ router.get('/new', function(request, response) {
   response.render('new', {});
 });
 
-// create a new blog post object
+// Create a new blog post object
 router.post('/create', function(request, response) {
-  // TODO: Create and save a Post model
-  var post = CHANGEME();
+  var post = new Post({
+    title: request.body.title,
+    content: request.body.content
+  });
 
-  // TODO: Save the model
-  post.CHANGEME(function(err, model) {
+  post.save(function(err, model) {
     if (err) { response.send(500, 'There was an error - tough luck.'); }
     else { response.redirect('/'); }
   });
