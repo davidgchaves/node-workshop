@@ -22,7 +22,7 @@ function authUser(request, response, next) {
 }
 
 // Mounting our own Middleware to be used by every request
-app.use(authUser);
+//app.use(authUser);
 
 // Routing (GET) with callback sending JSON as the response
 app.get('/', function(request, response) {
@@ -31,7 +31,8 @@ app.get('/', function(request, response) {
 
 // Routing (POST) grabbing a request parameter
 // and sending it back as a JSON response
-app.post('/doStuff', function(request, response) {
+// Applies our own Middleware authUser prior to the request of this route
+app.post('/doStuff', authUser, function(request, response) {
   //var param = request.body['message'];
   var param = request.body.message;
   response.send({ message: param, isAdmin: request.user.admin });
