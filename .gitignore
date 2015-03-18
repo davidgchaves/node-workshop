@@ -31,3 +31,5 @@ bower_components
 client.js
 client-test.js
 
+# Users, passwords...
+config.js
